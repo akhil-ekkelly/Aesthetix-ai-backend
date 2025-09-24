@@ -1,0 +1,6 @@
+flask
+gunicorn
+diffusers[torch]
+transformers
+accelerate
+flask-cors

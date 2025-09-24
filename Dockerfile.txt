@@ -1,0 +1,19 @@
+# Use an official Python runtime as a parent image
+FROM python:3.10-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install any needed system-level packages and the Python libraries
+RUN apt-get update && apt-get install -y --no-install-recommends git-lfs && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of your application code into the container
+COPY . .
+
+# Command to run the application using Gunicorn, a professional web server
+# Heroku will automatically use the port it assigns
+CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "app:app"]
